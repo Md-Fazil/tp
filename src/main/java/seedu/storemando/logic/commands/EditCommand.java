@@ -1,6 +1,9 @@
 package seedu.storemando.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.storemando.commons.core.Messages.MESSAGE_DUPLICATE_ITEM;
+import static seedu.storemando.commons.core.Messages.MESSAGE_ITEM_EXPIRED_WARNING;
+import static seedu.storemando.commons.core.Messages.MESSAGE_SIMILAR_ITEM_WARNING;
 import static seedu.storemando.logic.parser.CliSyntax.PREFIX_EXPIRYDATE;
 import static seedu.storemando.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.storemando.logic.parser.CliSyntax.PREFIX_NAME;
@@ -48,11 +51,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in storemando.";
     public static final String MESSAGE_NO_CHANGE = "Item not edited! Specified change in item details same as "
         + "original.";
-    public static final String MESSAGE_ITEM_EXPIRED_WARNING = "\nWarning: Item has already expired!";
-    public static final String MESSAGE_SIMILAR_ITEM_WARNING = "\nWarning: Similar item exists in the same location!";
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;

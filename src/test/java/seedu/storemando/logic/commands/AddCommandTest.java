@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.storemando.commons.core.Messages.MESSAGE_DUPLICATE_ITEM;
+import static seedu.storemando.commons.core.Messages.MESSAGE_ITEM_EXPIRED_WARNING;
+import static seedu.storemando.commons.core.Messages.MESSAGE_SIMILAR_ITEM_WARNING;
 import static seedu.storemando.model.expirydate.ExpiryDate.NO_EXPIRY_DATE;
 import static seedu.storemando.testutil.Assert.assertThrows;
 
@@ -52,7 +55,7 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validItem).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_ITEM_EXPIRED_WARNING, validItem),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_ITEM_EXPIRED_WARNING, validItem),
             commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validItem), modelStub.itemsAdded);
     }
@@ -65,17 +68,17 @@ public class AddCommandTest {
 
         Item similarItem = new ItemBuilder().withName("apple").withLocation("Kitchen").build();
         CommandResult commandResult = new AddCommand(similarItem).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_SIMILAR_ITEM_WARNING, similarItem),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_SIMILAR_ITEM_WARNING, similarItem),
             commandResult.getFeedbackToUser());
 
         similarItem = new ItemBuilder().withName("Apple").withLocation("kitchen").build();
         commandResult = new AddCommand(similarItem).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_SIMILAR_ITEM_WARNING, similarItem),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_SIMILAR_ITEM_WARNING, similarItem),
             commandResult.getFeedbackToUser());
 
         similarItem = new ItemBuilder().withName("aPPle").withLocation("kiTChen").build();
         commandResult = new AddCommand(similarItem).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_SIMILAR_ITEM_WARNING, similarItem),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_SIMILAR_ITEM_WARNING, similarItem),
             commandResult.getFeedbackToUser());
     }
 
@@ -89,18 +92,18 @@ public class AddCommandTest {
         Item similarItem = new ItemBuilder().withName("apple").withLocation("Kitchen").withExpiryDate("2019-10-10")
             .build();
         CommandResult commandResult = new AddCommand(similarItem).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_SIMILAR_ITEM_WARNING
-                + AddCommand.MESSAGE_ITEM_EXPIRED_WARNING, similarItem), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_SIMILAR_ITEM_WARNING
+                + MESSAGE_ITEM_EXPIRED_WARNING, similarItem), commandResult.getFeedbackToUser());
 
         similarItem = new ItemBuilder().withName("Apple").withLocation("kitchen").withExpiryDate("2020-10-10").build();
         commandResult = new AddCommand(similarItem).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_SIMILAR_ITEM_WARNING
-                + AddCommand.MESSAGE_ITEM_EXPIRED_WARNING, similarItem), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_SIMILAR_ITEM_WARNING
+                + MESSAGE_ITEM_EXPIRED_WARNING, similarItem), commandResult.getFeedbackToUser());
 
         similarItem = new ItemBuilder().withName("aPPle").withLocation("kiTChen").withExpiryDate("2020-11-10").build();
         commandResult = new AddCommand(similarItem).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_SIMILAR_ITEM_WARNING
-                + AddCommand.MESSAGE_ITEM_EXPIRED_WARNING, similarItem), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS + MESSAGE_SIMILAR_ITEM_WARNING
+                + MESSAGE_ITEM_EXPIRED_WARNING, similarItem), commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -109,7 +112,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validItem);
         ModelStub modelStub = new ModelStubWithItem(validItem);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ITEM, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_ITEM, () -> addCommand.execute(modelStub));
     }
 
     @Test

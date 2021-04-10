@@ -2,6 +2,9 @@ package seedu.storemando.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.storemando.commons.core.Messages.MESSAGE_DUPLICATE_ITEM;
+import static seedu.storemando.commons.core.Messages.MESSAGE_ITEM_EXPIRED_WARNING;
+import static seedu.storemando.commons.core.Messages.MESSAGE_SIMILAR_ITEM_WARNING;
 import static seedu.storemando.logic.commands.CommandTestUtil.DESC_BANANA;
 import static seedu.storemando.logic.commands.CommandTestUtil.DESC_CHEESE;
 import static seedu.storemando.logic.commands.CommandTestUtil.VALID_EXPIRED_EXPIRYDATE_BANANA;
@@ -86,7 +89,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(indexLastItem, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS
-            + EditCommand.MESSAGE_ITEM_EXPIRED_WARNING, editedItem);
+            + MESSAGE_ITEM_EXPIRED_WARNING, editedItem);
 
         Model expectedModel = new ModelManager(new StoreMando(model.getStoreMando()), new UserPrefs());
         expectedModel.setItem(lastItem, editedItem);
@@ -108,7 +111,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(indexLastItem, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS
-            + EditCommand.MESSAGE_SIMILAR_ITEM_WARNING, editedItem);
+            + MESSAGE_SIMILAR_ITEM_WARNING, editedItem);
 
         Model expectedModel = new ModelManager(new StoreMando(model.getStoreMando()), new UserPrefs());
         expectedModel.setItem(lastItem, editedItem);
@@ -151,7 +154,7 @@ public class EditCommandTest {
                 .build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ITEM_SUCCESS
-            + EditCommand.MESSAGE_ITEM_EXPIRED_WARNING, editedItem);
+            + MESSAGE_ITEM_EXPIRED_WARNING, editedItem);
 
         Model expectedModel = new ModelManager(new StoreMando(model.getStoreMando()), new UserPrefs());
         showItemAtIndex(expectedModel, INDEX_FIRST_ITEM);
@@ -166,7 +169,7 @@ public class EditCommandTest {
         Item firstItem = model.getFilteredItemList().get(INDEX_FIRST_ITEM.getZeroBased());
         EditCommand.EditItemDescriptor descriptor = new EditItemDescriptorBuilder(firstItem).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_ITEM, descriptor);
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ITEM);
     }
 
     @Test
@@ -178,7 +181,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ITEM,
             new EditItemDescriptorBuilder(itemInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_ITEM);
     }
 
     @Test

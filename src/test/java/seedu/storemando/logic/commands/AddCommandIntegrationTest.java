@@ -1,5 +1,6 @@
 package seedu.storemando.logic.commands;
 
+import static seedu.storemando.commons.core.Messages.MESSAGE_DUPLICATE_ITEM;
 import static seedu.storemando.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.storemando.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.storemando.testutil.TypicalItems.getTypicalStoreMando;
@@ -39,7 +40,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateItem_throwsCommandException() {
         Item itemInList = model.getStoreMando().getItemList().get(0);
-        assertCommandFailure(new AddCommand(itemInList), model, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        assertCommandFailure(new AddCommand(itemInList), model, MESSAGE_DUPLICATE_ITEM);
     }
 
 }
